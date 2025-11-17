@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change directory to the directory containing your git repos
-cd /mnt/redhatrepos/src || { echo "Failed to navigate to /mnt/redhatrepos/src"; exit 1; }
+cd /home/src || { echo "Failed to navigate to /home/src"; exit 1; }
 
 # Loop through each directory in the specified path
 for repo in */; do
