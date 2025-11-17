@@ -16,4 +16,6 @@ chmod +x /home/src/git-remote-fetch
 
 rm -rf /home/src/RepoAutomation
 
+cd /home/src
+
 echo "All scripts have been moved to /home/src and have been set to executable"
