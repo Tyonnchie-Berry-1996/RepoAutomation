@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change directory to the directory containing your git repos
-cd /mnt/redhatrepos/src
+cd /home/src
 
 for repo in */; do
     # Print the name of the repo
