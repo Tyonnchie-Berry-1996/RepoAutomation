@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Change directory to the directory containing your git repos
+cd /mnt/redhatrepos/src || { echo "Failed to navigate to /mnt/redhatrepos/src"; exit 1; }
+
+# Loop through each directory in the specified path
+for repo in */; do
+    # Print the name of the repo
+    echo "Found repository: $repo"
+
+    # Navigate to the repository directory
+    cd "$repo" || { echo "Failed to navigate to $repo"; continue; }
+
+    # Ensure it's a git repository
+    if [ -d ".git" ]; then
+        # Print statement for each remote repository
+        echo "Remotes for $repo:"
+        for remote in $(git remote); do
+            echo "  Found remote: $remote"
+        done
+
+        # Check if the repository is "old-workflow/"
+        if [ "$repo" == "old-workflow/" ]; then
+            # Ask the user if they want to run git fetch on the remote repositories
+            read -p "Do you want to run 'git fetch' on the remote repositories for $repo? (y/n) " choice
+            case "$choice" in 
+                y|Y )
+                    echo "Fetching all remote repositories in $repo"
+                    for remote in $(git remote); do
+                        git fetch "$remote"
+                    done
+                    ;;
+                n|N ) 
+                    echo "Skipping 'git fetch' for $repo"
+                    ;;
+                * ) 
+                    echo "Invalid choice, skipping 'git fetch' for $repo"
+                    ;;
+            esac
+        else
+            # Automatically run git fetch for all other repositories
+            echo "Automatically fetching all remote repositories in $repo"
+            for remote in $(git remote); do
+                git fetch "$remote"
+            done
+        fi
+    else
+        echo "$repo is not a git repository."
+    fi
+
+    # Navigate back to the parent directory
+    cd ..
+done
+
+echo "All repositories have been processed."
+
