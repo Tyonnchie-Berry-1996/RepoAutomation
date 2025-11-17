@@ -14,7 +14,7 @@ chmod +x /home/src/git-pull.sh
 
 chmod +x /home/src/git-remote-fetch
 
-cd /home/src
+cd ../
 
 rm -rf /home/src/RepoAutomation
 
